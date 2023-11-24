@@ -34,7 +34,9 @@ const startCLI = () => {
     }
 
     // result
-    getWeather('London')
+    getWeather(process.env.CITY ?? 'London').then(data => {
+        console.log(data);
+    })
 }
 
 startCLI()

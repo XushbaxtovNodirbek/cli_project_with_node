@@ -3,7 +3,7 @@ import { getKeyValue , TOKEN_DICTIONARY } from './storage.service.js'
 
 const getWeather = async (city) => {
     // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-    const token = await getKeyValue(TOKEN_DICTIONARY.token)
+    const token = await getKeyValue(process.env.TOKEN ?? TOKEN_DICTIONARY.token)
     if(!token){
         throw new Error('Token is required, please run "-t [API_KEY]"') 
     }
@@ -17,6 +17,7 @@ const getWeather = async (city) => {
     })
 
     
+    // console.log(data);
     return data
     // const url = new URL('https://api.openweathermap.org/data/2.5/weather')
     // url.searchParams.append('q',city)
