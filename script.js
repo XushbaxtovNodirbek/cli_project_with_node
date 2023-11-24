@@ -1,7 +1,7 @@
 import getArgs from './helper/args.js';
-import { printError, printSuccess, printHelp } from './services/log.service.js';
+import { printError, printSuccess, printHelp, printWeather  } from './services/log.service.js';
 import { saveKeyValue,TOKEN_DICTIONARY , getKeyValue} from './services/storage.service.js';
-import { getWeather } from './services/api.service.js';
+import { getWeather, getIcons } from './services/api.service.js';
 
 const saveToken = async (token) => {
     try{
@@ -37,7 +37,7 @@ const startCLI = () => {
         try{
         const city = await getKeyValue(TOKEN_DICTIONARY.city)
         const response = await getWeather(process.env.CITY ?? city)
-        console.log(response);
+        printWeather(response,getIcons(response.weather[0].icon))
         }catch(error){
             if(error?.response?.status === 404){
                  printError('City not found')
